@@ -1,0 +1,15 @@
+header {
+    grid-area: header;
+    background-color:#e70000c6;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+input {
+    height: 40px;
+    width: 150px;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: black;
+    
+}
