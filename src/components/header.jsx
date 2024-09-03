@@ -1,17 +1,14 @@
-import "./header.css";
-
-
-function Header() {
-  return (
-    <>
-      <header>
-        <div className="headeritems">
-          <input type="text" placeholder="Search for a food" value="" />
-        </div>
-        <div className="dataitems"></div>
-      </header>
-    </>
-  );
+//import { Link } from "react-router-dom"
+export default function Header() {
+    return(
+        <header className="text-white ">
+            <ul className="flex justify-end space-x-4 p-4">
+                <li> Home</li>
+                <li>Home</li>
+                <li>Home</li>
+                <li>Home</li>
+                <li>Home</li>
+            </ul>
+        </header>
+    )
 }
-
-export default Header;
