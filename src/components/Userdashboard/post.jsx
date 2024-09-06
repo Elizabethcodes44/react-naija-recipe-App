@@ -4,28 +4,57 @@ import { useParams } from 'react-router-dom';
 export default function PostDetail() {
     const { postId } = useParams();
     const [post, setPost] = useState(null);
+   
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:5432
-/post/posts/${postId}`)
-            .then(response => response.json())
-            .then(data => setPost(data))
-            .catch(error => console.error('Error fetching post:', error));
+        setLoading(true); // Set loading state to true
+        // Fetch post details
+        fetch(`http://localhost:5432/post/posts/${postId}`)
+            .then(response =>
+                {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                }) 
+            .then(result => {
+                setPost(result.post);
+                console.log("this is the post", result.post)
+                 })
+            .catch(error => console.error('Error fetching post details:', error))
+            .finally(() => setLoading(false)); //
     }, [postId]);
-
-    if (!post) return <div>Loading...</div>;
+    if (loading) {
+        return <div className="container mx-auto p-4">Loading...</div>;
+    }
 
     return (
-        <div className="container mx-auto p-4">
-            <div className="bg-white shadow-md rounded-lg p-6">
-                <img src={post.imageUrl} alt={post.title} className="w-full h-64 object-cover rounded-lg mb-4" />
-                <h1 className="text-2xl font-semibold mb-4">{post.title}</h1>
-                <p className="text-gray-700 mb-4">{post.content}</p>
-                <div className="border-t pt-4">
-                    <h2 className="text-xl font-semibold mb-4">Comments</h2>
-                    {/* Display comments and reply functionality here */}
-                </div>
-            </div>
-        </div>
+        <div className="container mx-auto p-4 text-white">
+            {post ? (
+                <div>
+                    <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+                    <img src={post.featured_image_url} alt={post.title} className="w-full h-64 object-cover mb-4" />
+                    <p className="mb-4">{post.content}</p>
+                    <p className="mb-4">{post.author.name}</p>
+
+                    {/* Comments Section */}
+                    <h2 className="text-xl font-bold mb-4">Comments</h2>
+                    <ul>
+                        {post.comments.map(comment => (
+                            <li key={comment.id}>
+                                <p>{comment.content}</p>
+                                <p>Likes: {comment.likes}</p>
+                                <p>Dislikes: {comment.dislikes}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>               
+                        ) : (
+                            <div>No comments yet</div>
+
+                        )}
+                    </div>
+               
     );
 }

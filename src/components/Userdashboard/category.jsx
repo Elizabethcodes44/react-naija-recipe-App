@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import catimage from "../../assets/land.png";
-export default function Category() {
+
+export default function Category({onCategorySelect}) {
     const [categories, setCategories] = useState([]);
     //const [posts, setPosts] = useState([]);
     //const [selectedCategory, setSelectedCategory] = useState('all');
@@ -32,6 +32,7 @@ export default function Category() {
                     categories.map((category) => (
                         <div
                             key={category.id}
+                            onClick={() => onCategorySelect(category.name)}
                             className="p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center cursor-pointer hover:shadow-lg transition"
                         >
                             <div className="text-lg font-semibold">{category.name}</div>

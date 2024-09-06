@@ -4,7 +4,15 @@ import Sidebar from "./aside2.jsx";
 import Home from "./home.jsx";
 import UserHeader from "./up.jsx";
 import "./aside1.css";
+import { Routes, Route } from "react-router-dom";
+import PostList from "./postlist.jsx";
+import PostDetail from "./post.jsx";
+import { useState } from "react";
 export default function UserDashBoard() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category); // Set the selected category
+  };
   return (
     <>
       <div
@@ -18,14 +26,24 @@ export default function UserDashBoard() {
         }}
       >
         <UserHeader></UserHeader>
-        
-          <Leftbar></Leftbar>
-          <div className="main-content">
-            <Home></Home>
-          </div>
-          <Sidebar></Sidebar>
+
+        <Leftbar></Leftbar>
+        <div className="main-content">
+          <Routes>
+            <Route
+              path="/"
+              element={<Home onCategorySelect={handleCategorySelect} />}
+            ></Route>
+            <Route
+              path="posts"
+              element={<PostList selectedCategory={selectedCategory} />}
+            />
+            <Route path="post/:postId" element={<PostDetail />} />
+
+          </Routes>
         </div>
-     
+        <Sidebar></Sidebar>
+      </div>
     </>
   );
 }
