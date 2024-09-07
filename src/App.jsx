@@ -5,7 +5,7 @@ import Header from "./components/Header/header";
 import Home from "./components/Home/home";
 import Login from "./components/Home/login";
 import Signup from "./components/Home/signup";
-import UserDashBoard from "./Components/Userdashboard/Udashboard";
+import UserDashBoard from "./Components/Userdashboard/dashboard";
 import AuthorDashBoard from "./Components/Authordashboard/Adashboard";
 import AdminDashBoard from "./Components/AdminDashboard/ADdashboard";
 import UserHeader from "./components/Userdashboard/up";
