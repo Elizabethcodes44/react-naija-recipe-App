@@ -1,0 +1,72 @@
+/* Ensure the entire layout takes up the full viewport height */
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Sidebar styling */
+.left-sidebar {
+    position: fixed;
+    top: 0; /* Align the top of the sidebar with the page */
+    left: 0;
+    width: 250px; /* Increase the width of the sidebar */
+    height: 100vh; /* Full height of the viewport */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent dark background */
+    padding-top: 100px; /* To account for the fixed header */
+    z-index: 999; /* Stay on top of the content */
+}
+
+/* Header styling */
+.author-header {
+    position: fixed;
+    top: 0;
+    left: 250px; /* Align it to the right of the sidebar */
+    right: 0;
+    height: 100px; /* Header height */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent header */
+    color: white;
+    padding: 20px;
+    z-index: 998;
+}
+
+/* Main content area */
+.main-content {
+    margin-left: 250px; /* Adjusted for left sidebar */
+    padding-top: 100px; /* Offset for the fixed header */
+    padding: 20px;
+    flex: 1;
+}
+
+/* Menu items styling */
+.menu-item {
+    padding: 10px;
+    text-align: center;
+}
+
+.menu-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.menu-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.menu-text {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.menu-item:hover .menu-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+

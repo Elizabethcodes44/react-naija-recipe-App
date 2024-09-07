@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link  } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
-import "./aside1.css";
+import "./author.css";
 export default function LeftBar() {
    const [active, setActive] = useState(0);
    const navigate = useNavigate();
@@ -33,18 +33,18 @@ export default function LeftBar() {
     }
 };
   const Menus = [
-    { name: "Home", icon: "home-outline", dis: "translate-x-0" , link: "/user-dashboard"},
-    { name: "Notifications", icon: "notifications-outline", dis: "translate-x-16" , link: "/user-dashboard/notifications"},
+    { name: "Home", icon: "home-outline", dis: "translate-x-0" , link: "/author-dashboard"},
+    { name: "Notifications", icon: "notifications-outline", dis: "translate-x-16" , link: "/author-dashboard/notifications"},
   
    
     
-    { name: "Settings", icon: "cog", dis: "translate-x-96" , link: "/user-dashboard/settings", },
+    { name: "Settings", icon: "cog", dis: "translate-x-96" , link: "/author-dashboard/settings", },
     { name: "Logout", icon: "log-out", dis: "translate-x-96" , link: "", onClick: handleLogout },
 
   ];
   
   return (
-    <div className="left-sidebar bg-transparent text-white p-4 rounded-l-lg border-gold border-2 rounded-full">
+    <div className="left-sidebar ">
        
       <ul className="menu-list">
        

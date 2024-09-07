@@ -4,6 +4,7 @@ const initialState = {
     name  : "",
     email : "",
     password: "",
+    profileImage: null // This will be used to handle file uploads
 }
 export default function Signup() {
     const [form , setForm] = useState(initialState);
@@ -13,42 +14,45 @@ export default function Signup() {
             [e.target.name]: e.target.value,
         });
     };
+    const navigate = useNavigate();
+    const handleFileChange = (e) => {
+        setForm({
+            ...form,
+            profileImage: e.target.files[0]
+        });
+    };
  
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+    
+        const formData = new FormData();
+        formData.append('name', form.name);
+        formData.append('email', form.email);
+        formData.append('password', form.password);
+        if (form.profileImage) {
+            formData.append('profileImage', form.profileImage);
+        }
+    
         try {
-            // send POST to the Server
             const response = await fetch('http://localhost:5432/user/signup', {
                 method: 'POST',
-                // make sure the request body is in JSON format
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(form),
+                body: formData,
             });
-            
-            // Wait for response from server
+    
             const data = await response.json();
-            
-            // If server respond
+    
             if (response.ok) {
-                // Handle successful login (e.g., navigate to another page, store user data)
                 console.log("Sign up successful", data);
-                //navigate("/userdashboard")
-            } 
-            else {
-                // Handle errors (e.g., show error message)
+                navigate("/login");
+            } else {
                 console.error("Sign up failed", data);
             }
         } catch (error) {
             console.error("An error occurred", error);
         }
     };
-    const navigate = useNavigate();
-    const handleNavigate = () => {
-        navigate("/login")
-    }
+    
+    
   return (
     <div>
       <form onSubmit = {handleSubmit}>
@@ -73,9 +77,11 @@ export default function Signup() {
         value = {form.password}
         name = "password"
         onChange={handleChange}/>
+        <label htmlFor="profileImage">Profile Image:</label>
+        <input type="file" name="profileImage" onChange={handleFileChange} />
         <input type = "submit"
         value="submit"
-        onClick= {handleNavigate}/>
+        />
       
       </form>
     </div>
