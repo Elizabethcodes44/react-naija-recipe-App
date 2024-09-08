@@ -27,6 +27,7 @@ export default function Login() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include', 
         body: JSON.stringify(form),
       });
 
@@ -40,7 +41,12 @@ export default function Login() {
 
         // Set the token in cookies (assuming `data.token` holds the token)
         const token = data.token;
-        Cookies.set("token", token);
+
+        Cookies.set("token", token, {
+          // Expires in 7 days
+          path: "/", // Available throughout the site
+          sameSite: "Lax", // Lax for CSRF protection
+        });
 
         // Role-based redirection logic
         const { role } = data; // Assuming `data` contains user role information
@@ -71,14 +77,15 @@ export default function Login() {
     navigate("/signup");
   };
   return (
-    <div className="flex items-center justify-center min-h-screen text-white p-6"
-    style={{
+    <div
+      className="flex items-center justify-center min-h-screen text-white p-6"
+      style={{
         backgroundImage: `url(${background})`,
         backgroundSize: "cover", // Ensures the image covers the entire area
         backgroundRepeat: "no-repeat", // Prevents the image from repeating
         backgroundPosition: "center", // Centers the background image
-        
-      }}>
+      }}
+    >
       <div className="bg-white/30 backdrop-blur-md p-8 rounded-lg shadow-lg max-w-sm w-full">
         <h1 className="text-2xl font-bold mb-6 text-center">
           Log in to our blog

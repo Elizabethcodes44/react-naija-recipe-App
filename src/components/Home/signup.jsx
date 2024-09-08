@@ -46,7 +46,7 @@ export default function Signup() {
     
             if (response.ok) {
                 console.log("Sign up successful", data);
-                setMessage("Login successful");
+                setMessage("Sign up successful");
         setError("");
                 navigate("/login");
             } else {

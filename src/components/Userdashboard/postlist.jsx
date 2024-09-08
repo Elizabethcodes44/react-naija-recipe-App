@@ -60,7 +60,9 @@ export default function PostList({ selectedCategory }) {
                         className="cursor-pointer bg-white p-4 shadow-md rounded-lg hover:shadow-lg transition"
                     >
                         
-                        <img src={post.featured_image_url} alt={post.title} className="h-32 w-full object-cover rounded-md mb-4" />
+                        <img src={`http://localhost:5432${post.featured_image_url}`}  alt={post.title} className="h-32 w-full object-cover rounded-md mb-4" />
+                       
+
                      
                         <h1>Status: {post.status}</h1>
                        
