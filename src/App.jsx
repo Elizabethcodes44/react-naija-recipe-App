@@ -11,6 +11,8 @@ import AdminDashBoard from "./components/AdminDashboard/ADdashboard";
 import UserHeader from "./components/Userdashboard/up";
 import AuthorHeader from "./components/Authordashboard/header";
 import AdminHeader from "./components/AdminDashboard/header";
+import Contact from "./components/Home/contact";
+import About from "./components/Home/about";
 
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
      
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path = "/aboutus" element= {<About/>}></Route>
+        <Route path = "/contactus" element= {<Contact/>}></Route>
         <Route path = "/login" element= {<Login/>}></Route>
         <Route path = "/signup" element= {<Signup/>}></Route>
         <Route path = "/user-dashboard/*" element= {<UserDashBoard/>}></Route>
