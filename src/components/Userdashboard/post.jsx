@@ -14,7 +14,7 @@ export default function PostDetail() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5432/post/posts/${postId}`)
+    fetch(`https://foodblog-server-side.onrender.com/post/posts/${postId}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -30,18 +30,17 @@ export default function PostDetail() {
   }, [postId]);
 
   const handleCommentSubmit = () => {
-    const token = Cookies.get('authToken');
+    const token = Cookies.get('token');
 
     if (!token) {
       console.error('No token found');
       return;
     }
 
-    fetch('http://localhost:5432/comment/comments', {
+    fetch('https://foodblog-server-side.onrender.com/comment/comments', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+      
       },
       body: JSON.stringify({
         content: newComment,
@@ -64,17 +63,17 @@ export default function PostDetail() {
   };
 
   const handleLike = (commentId) => {
-    const token = Cookies.get('authToken');
+    const token = Cookies.get('token');
 
     if (!token) {
       console.error('No token found');
       return;
     }
 
-    fetch(`http://localhost:5432/comment/comments/${commentId}/like`, {
+    fetch(`https://foodblog-server-side.onrender.com/comment/comments/${commentId}/like`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`
+      
       }
     })
       .then(response => response.json())
@@ -89,17 +88,17 @@ export default function PostDetail() {
   };
 
   const handleDislike = (commentId) => {
-    const token = Cookies.get('authToken');
+    const token = Cookies.get('token');
 
     if (!token) {
       console.error('No token found');
       return;
     }
 
-    fetch(`http://localhost:5432/comment/comments/${commentId}/dislike`, {
+    fetch(`https://foodblog-server-side.onrender.com/comment/comments/${commentId}/dislike`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`
+        
       }
     })
       .then(response => response.json())

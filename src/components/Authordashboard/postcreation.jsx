@@ -19,7 +19,7 @@ export default function CreateAPost() {
     useEffect(() => {
       async function fetchCategories() {
         try {
-          const response = await fetch("http://localhost:5432/category");
+          const response = await fetch("https://foodblog-server-side.onrender.com/category");
           const result = await response.json();
           if (response.ok) {
             
@@ -68,7 +68,7 @@ export default function CreateAPost() {
           const token = Cookies.get('token'); // Ensure the correct token key
          
           console.log(token)
-          const response = await fetch("http://localhost:5432/post/posts", {
+          const response = await fetch("https://foodblog-server-side.onrender.com/post/posts", {
             method: "POST",
            
             credentials: 'include', // This ensures cookies are sent with the request

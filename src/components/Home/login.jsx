@@ -22,7 +22,7 @@ export default function Login() {
 
     try {
       // send POST request to the server
-      const response = await fetch("http://localhost:5432/user/login", {
+      const response = await fetch("https://foodblog-server-side.onrender.com/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

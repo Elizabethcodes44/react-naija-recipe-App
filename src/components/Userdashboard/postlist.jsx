@@ -9,12 +9,12 @@ export default function PostList({ selectedCategory }) {
     const navigate = useNavigate();
     //usıng pagınatıon
     const [currentPage, setCurrentPage] = useState(1);
-    const [postPerPage, setPostPerPage] = useState(4);
+    const [postPerPage, setPostPerPage] = useState(3);
 
     // Fetch posts when selectedCategory changes
     useEffect(() => {
         setLoading(true); // Start loading state
-        const url = `http://localhost:5432/category/postscategory?category=${selectedCategory}`;
+        const url = `https://foodblog-server-side.onrender.com/category/postscategory?category=${selectedCategory}`;
 
         fetch(url)
             .then(response => {
@@ -59,8 +59,18 @@ export default function PostList({ selectedCategory }) {
                         onClick={() => handlePostClick(post.id)}
                         className="cursor-pointer bg-white p-4 shadow-md rounded-lg hover:shadow-lg transition"
                     >
-                        
-                        <img src={`http://localhost:5432${post.featured_image_url}`}  alt={post.title} className="h-32 w-full object-cover rounded-md mb-4" />
+                     <img
+   src={`https://foodblog-server-side.onrender.com${post.featured_image_url}`}
+
+    alt={post.title}
+    className="h-32 w-full object-cover rounded-md mb-4"
+    onError={(e) => {
+        console.error('Image load error:', e);
+        e.target.src = '/logo.png'; // Optional fallback
+    }}
+/>
+
+
                        
 
                      

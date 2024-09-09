@@ -9,7 +9,7 @@ export default function Category({onCategorySelect}) {
 
     // Fetch categories from the database
     useEffect(() => {
-        fetch('http://localhost:5432/category')
+        fetch('https://foodblog-server-side.onrender.com/category')
             .then(response => response.json())
             .then(result => {
                 console.log('Categories Data:', result.data); // Add this log

@@ -11,7 +11,7 @@ export default function LeftBar() {
    const handleLogout = async () => {
     try {
         // Send a POST request to the backend logout route
-        const response = await fetch('http://localhost:5432/user/logout', {
+        const response = await fetch('https://foodblog-server-side.onrender.com//user/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -37,7 +37,7 @@ export default function Signup() {
         }
     
         try {
-            const response = await fetch('http://localhost:5432/user/signup', {
+            const response = await fetch('https://foodblog-server-side.onrender.com/user/signup', {
                 method: 'POST',
                 body: formData,
             });
