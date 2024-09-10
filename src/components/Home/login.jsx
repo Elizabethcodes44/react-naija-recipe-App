@@ -6,6 +6,9 @@ const initialState = {
   email: "",
   password: "",
 };
+const apiUrl = import.meta.env.MODE === 'development'
+  ? 'http://localhost:5432'  // Local backend URL for development
+  : 'https://foodblog-server-side.onrender.com';  // Production backend URL
 export default function Login() {
   const [form, setForm] = useState(initialState);
   const [message, setMessage] = useState(""); // For success or error messages
@@ -22,7 +25,7 @@ export default function Login() {
 
     try {
       // send POST request to the server
-      const response = await fetch("https://foodblog-server-side.onrender.com/user/login", {
+      const response = await fetch(`${apiUrl}/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

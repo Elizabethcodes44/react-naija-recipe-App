@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-
+const apiUrl = import.meta.env.MODE === 'development'
+  ? 'http://localhost:5432'  // Local backend URL for development
+  : 'https://foodblog-server-side.onrender.com';  // Production backend URL
 
 export default function Category({onCategorySelect}) {
     const [categories, setCategories] = useState([]);
@@ -9,7 +11,7 @@ export default function Category({onCategorySelect}) {
 
     // Fetch categories from the database
     useEffect(() => {
-        fetch('https://foodblog-server-side.onrender.com/category')
+        fetch(`${apiUrl}/category`)
             .then(response => response.json())
             .then(result => {
                 console.log('Categories Data:', result.data); // Add this log

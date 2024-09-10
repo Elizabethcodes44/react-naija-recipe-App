@@ -7,6 +7,9 @@ const initialState = {
     password: "",
     profileImage: null // This will be used to handle file uploads
 }
+const apiUrl = import.meta.env.MODE === 'development'
+  ? 'http://localhost:5432'  // Local backend URL for development
+  : 'https://foodblog-server-side.onrender.com';  // Production backend URL
 export default function Signup() {
     const [form , setForm] = useState(initialState);
     const [message, setMessage] = useState(""); // For success or error messages
@@ -37,7 +40,7 @@ export default function Signup() {
         }
     
         try {
-            const response = await fetch('https://foodblog-server-side.onrender.com/user/signup', {
+            const response = await fetch(`${apiUrl}/user/signup`, {
                 method: 'POST',
                 body: formData,
             });
@@ -56,7 +59,7 @@ export default function Signup() {
         } catch (error) {
             console.error("An error occurred", error);
             setMessage("");
-      setError("An error occured during log in");
+      setError("An error occured during sign up");
         }
     };
     

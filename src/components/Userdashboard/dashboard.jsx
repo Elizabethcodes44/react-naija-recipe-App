@@ -8,6 +8,8 @@ import { Routes, Route } from "react-router-dom";
 import PostList from "./postlist.jsx";
 import PostDetail from "./post.jsx";
 import { useState } from "react";
+import Profile from "./Profile.jsx";
+import AuthorsList from "./authors.jsx";
 export default function UserDashBoard() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const handleCategorySelect = (category) => {
@@ -39,6 +41,8 @@ export default function UserDashBoard() {
               element={<PostList selectedCategory={selectedCategory} />}
             />
             <Route path="post/:postId" element={<PostDetail />} />
+            <Route path="myprofile" element={<Profile />} />
+            <Route path="authorslist" element={<AuthorsList />} />
 
           </Routes>
         </div>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Pagination from './pagination';
-
+const apiUrl = import.meta.env.MODE === 'development'
+  ? 'http://localhost:5432'  // Local backend URL for development
+  : 'https://foodblog-server-side.onrender.com';  // Production backend URL
 export default function PostList({ selectedCategory }) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ export default function PostList({ selectedCategory }) {
     // Fetch posts when selectedCategory changes
     useEffect(() => {
         setLoading(true); // Start loading state
-        const url = `https://foodblog-server-side.onrender.com/category/postscategory?category=${selectedCategory}`;
+        const url = `${apiUrl}/category/postscategory?category=${selectedCategory}`;
 
         fetch(url)
             .then(response => {
@@ -60,7 +62,7 @@ export default function PostList({ selectedCategory }) {
                         className="cursor-pointer bg-white p-4 shadow-md rounded-lg hover:shadow-lg transition"
                     >
                      <img
-   src={`https://foodblog-server-side.onrender.com${post.featured_image_url}`}
+   src={`${apiUrl}${post.featured_image_url}`}
 
     alt={post.title}
     className="h-32 w-full object-cover rounded-md mb-4"

@@ -8,6 +8,9 @@ const initialState = {
   tags: "",
   featuredImageUrl: null,
 };
+const apiUrl = import.meta.env.MODE === 'development'
+  ? 'http://localhost:5432'  // Local backend URL for development
+  : 'https://foodblog-server-side.onrender.com';  // Production backend URL
 export default function CreateAPost() {
     const [form, setForm] = useState(initialState);
     const [message, setMessage] = useState(""); // For success or error messages
@@ -19,7 +22,7 @@ export default function CreateAPost() {
     useEffect(() => {
       async function fetchCategories() {
         try {
-          const response = await fetch("https://foodblog-server-side.onrender.com/category");
+          const response = await fetch(`${apiUrl}/category`);
           const result = await response.json();
           if (response.ok) {
             
@@ -68,7 +71,7 @@ export default function CreateAPost() {
           const token = Cookies.get('token'); // Ensure the correct token key
          
           console.log(token)
-          const response = await fetch("https://foodblog-server-side.onrender.com/post/posts", {
+          const response = await fetch(`${apiUrl}/post/posts`, {
             method: "POST",
            
             credentials: 'include', // This ensures cookies are sent with the request

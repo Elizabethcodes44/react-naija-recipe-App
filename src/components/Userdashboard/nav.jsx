@@ -4,6 +4,9 @@ import { Link  } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
 import "./aside1.css";
+const apiUrl = import.meta.env.MODE === 'development'
+  ? 'http://localhost:5432'  // Local backend URL for development
+  : 'https://foodblog-server-side.onrender.com';  // Production backend URL
 export default function LeftBar() {
    const [active, setActive] = useState(0);
    const navigate = useNavigate();
@@ -11,7 +14,7 @@ export default function LeftBar() {
    const handleLogout = async () => {
     try {
         // Send a POST request to the backend logout route
-        const response = await fetch('https://foodblog-server-side.onrender.com/user/logout', {
+        const response = await fetch(`${apiUrl}/user/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

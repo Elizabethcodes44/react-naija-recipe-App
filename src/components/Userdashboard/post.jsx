@@ -3,7 +3,9 @@ import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie'; // Make sure js-cookie is installed
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
-
+const apiUrl = import.meta.env.MODE === 'development'
+  ? 'http://localhost:5432'  // Local backend URL for development
+  : 'https://foodblog-server-side.onrender.com';  // Production backend URL
 export default function PostDetail() {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
@@ -14,7 +16,7 @@ export default function PostDetail() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://foodblog-server-side.onrender.com/post/posts/${postId}`)
+    fetch(`${apiUrl}/post/posts/${postId}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -37,7 +39,7 @@ export default function PostDetail() {
       return;
     }
 
-    fetch('https://foodblog-server-side.onrender.com/comment/comments', {
+    fetch(`${apiUrl}/comment/comments`, {
       method: 'POST',
       headers: {
       
@@ -70,7 +72,7 @@ export default function PostDetail() {
       return;
     }
 
-    fetch(`https://foodblog-server-side.onrender.com/comment/comments/${commentId}/like`, {
+    fetch(`${apiUrl}/comment/comments/${commentId}/like`, {
       method: 'POST',
       headers: {
       
@@ -95,7 +97,7 @@ export default function PostDetail() {
       return;
     }
 
-    fetch(`https://foodblog-server-side.onrender.com/comment/comments/${commentId}/dislike`, {
+    fetch(`${apiUrl}/comment/comments/${commentId}/dislike`, {
       method: 'POST',
       headers: {
         
