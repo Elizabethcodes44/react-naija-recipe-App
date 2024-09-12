@@ -34,7 +34,7 @@ const AuthorsList = () => {
       {authors.map((author) => (
         <div
           key={author.id}
-          className="bg-white shadow-lg rounded-lg p-4 m-4 w-full max-w-xs"
+          className="bg-black text-white shadow-lg rounded-lg p-4 m-4 w-full max-w-xs"
         >
           <div className="flex flex-col items-center">
             <img

@@ -2,7 +2,8 @@ import "./aside1.css";
 import { useNavigate } from "react-router-dom";
 
 import Category from "./category";
-import Landingpage from "./landingpage";
+
+import RequestRoleChange from "./landingpage";
 export default function Home({onCategorySelect}) {
     const navigate = useNavigate();
     const handleCategorySelect = (category) => {
@@ -13,7 +14,7 @@ export default function Home({onCategorySelect}) {
    
     return(
         <div className="home-page ">
-            <Landingpage/>
+            <RequestRoleChange/>
             <Category onCategorySelect={handleCategorySelect} />
         </div>
     )

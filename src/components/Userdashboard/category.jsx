@@ -26,7 +26,7 @@ export default function Category({onCategorySelect}) {
 
     return (
         <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4 text-white">Categories</h1>
+            <h1 className="text-2xl font-bold mb-4 text-white text-center">Categories</h1>
 
             {/* Display categories */}
             <div className="grid grid-cols-4 gap-6">

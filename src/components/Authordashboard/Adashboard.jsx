@@ -26,7 +26,7 @@ export default function AuthorDashBoard() {
         <AuthorHeader></AuthorHeader>
 
         <Leftbar></Leftbar>
-        <div className="main-content">
+        <div className="author-content">
             <Routes>
                 <Route path = "/" element = {<Home/>}> </Route>
                 <Route path = "createapost" element = {<CreateAPost/>}> </Route>

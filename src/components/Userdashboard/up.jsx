@@ -33,7 +33,7 @@ export default function UserHeader() {
   }, []);
   return (
     <header
-      className="user-header flex items-center justify-between p-4 text-white"
+      className="user-header text-white"
       style={{
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
@@ -41,21 +41,18 @@ export default function UserHeader() {
         backgroundPosition: "center",
       }}
     >
-      <div className="flex items-center">
+      <div className="header-left">
         {user && (
           <div className="flex  items-center">
             <div> 
             <img
               src={`${apiUrl}${user.profile_image_url}`}
               alt={`${user.name}'s profile`}
-              className="w-16 h-16 rounded-full object-cover"
+              className="header-profile-image"
             />
-             <p className="text-sm text-gray-300">
-                {user.role}
-              </p>{" "}
-              {/* Display user roles */}
+            
               </div>
-            <div className="mt-2 text-center">
+            <div className="welcome-text">
               <h1 className="text-2xl font-bold">Welcome {user.name}!</h1>
               <p>Don't forget to check our blog today!</p>
               {/* Display user roles */}
@@ -64,26 +61,26 @@ export default function UserHeader() {
         )}
       </div>
       
-      <div>
+      <div className="header-links">
         <ul className="flex space-x-4 p-4">
-          <li className="border-2 rounded-full border-gold w-[100px] text-center hover:bg-orange-500">
+          <li className="border-2 rounded-full border-gold w-[150px] text-center hover:bg-orange-500 text-[20px]">
             <Link to="myprofile">Profile</Link>
           </li>
-          <li className="border-2 rounded-full border-gold w-[100px] text-center hover:bg-orange-500">
+          <li className="border-2 rounded-full border-gold w-[150px] text-center hover:bg-orange-500 text-[20px]">
             <Link to="authorslist">Authors</Link>
           </li>
         </ul>
       </div>
-      <div className="flex items-center relative">
+      <div className="search-container">
         <input
           placeholder="search blog"
-          className="border-2 rounded-full border-gold w-[150px] h-[30px] bg-transparent text-center pl-8 hover:bg-orange-500"
+          className="search-input"
         />
-        <div className="absolute left-2 top-1/2 transform -translate-y-1/2">
+        <div className="">
           <img
             src={searchbar}
             alt="searchbar"
-            className="h-4 w-4 object-contain"
+            className="search-icon"
           />
         </div>
       </div>

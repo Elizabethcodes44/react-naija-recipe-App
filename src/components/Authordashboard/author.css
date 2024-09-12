@@ -33,7 +33,7 @@
 }
 
 /* Main content area */
-.main-content {
+.author-content {
     margin-left: 250px; /* Adjusted for left sidebar */
     padding-top: 100px; /* Offset for the fixed header */
     padding: 20px;
@@ -41,12 +41,12 @@
 }
 
 /* Menu items styling */
-.menu-item {
+.menus-item {
     padding: 10px;
     text-align: center;
 }
 
-.menu-link {
+.menus-link {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,18 +54,18 @@
     color: white;
 }
 
-.menu-icon {
+.menus-icon {
     font-size: 24px;
     margin-bottom: 5px;
 }
 
-.menu-text {
+.menus-text {
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.menu-item:hover .menu-text {
+.menus-item:hover .menus-text {
     opacity: 1;
     transform: translateY(0);
 }

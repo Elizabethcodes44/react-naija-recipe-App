@@ -49,38 +49,38 @@ export default function LeftBar() {
   return (
     <div className="left-sidebar ">
        
-      <ul className="menu-list">
+      <ul className="menus-list">
        
 
        
      
      
         {Menus.map((menu, i) => (
-         <li key={i} className={`menu-item ${i === active ? "active" : ""}`}>
+         <li key={i} className={`menus-item ${i === active ? "active" : ""}`}>
            {menu.onClick ? (
               <a
                 href="#"
-                className="menu-link flex items-center"
+                className="menus-link flex items-center"
                 onClick={(e) => {
                   e.preventDefault(); // Prevent default anchor behavior
                   menu.onClick(); // Call the onClick handler
                 }}
               >
-                <span className="menu-icon">
+                <span className="menus-icon">
                   <ion-icon name={menu.icon}></ion-icon>
                 </span>
-                <span className="menu-text">{menu.name}</span>
+                <span className="menus-text">{menu.name}</span>
               </a>
             ) : (
          <Link
             to={menu.link}
-            className="menu-link flex items-center"
+            className="menus-link flex items-center"
             onClick={() => setActive(i)}
          >
-            <span className= "menu-icon">
+            <span className= "menus-icon">
                <ion-icon name={menu.icon}></ion-icon>
                </span>
-              <span className="menu-text">{menu.name}</span>
+              <span className="menus-text">{menu.name}</span>
               
                  
          </Link>

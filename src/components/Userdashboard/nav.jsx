@@ -47,7 +47,7 @@ export default function LeftBar() {
   ];
   
   return (
-    <div className="left-sidebar bg-transparent text-white p-4 rounded-l-lg border-gold border-2 rounded-full">
+    <div className="Menu-sidebar bg-transparent text-white p-4 rounded-l-lg border-gold border-2 rounded-full">
        
       <ul className="menu-list">
        
