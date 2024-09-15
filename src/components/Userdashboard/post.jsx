@@ -1,28 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Cookies from 'js-cookie'; // Make sure js-cookie is installed
+import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+
 const apiUrl = import.meta.env.MODE === 'development'
-  ? 'http://localhost:5432'  // Local backend URL for development
-  : 'https://foodblog-server-side.onrender.com';  // Production backend URL
+  ? 'http://localhost:5432'
+  : 'https://foodblog-server-side.onrender.com';
+
 export default function PostDetail() {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState('');
-  const [replyTo, setReplyTo] = useState(null); // Store the comment ID being replied to
+  const [replyTo, setReplyTo] = useState(null);
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     fetch(`${apiUrl}/post/posts/${postId}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then(result => {
         setPost(result.post);
         setComments(result.post.comments);
@@ -34,16 +31,16 @@ export default function PostDetail() {
   const handleCommentSubmit = async () => {
     try {
       const token = Cookies.get('token');
-      console.log("Token:",token);
-  
+      console.log("Token:", token);
+
       if (!token) {
         console.error('No token found');
         return;
       }
-  
+
       const response = await fetch(`${apiUrl}/comment/comments`, {
         method: 'POST',
-        credentials: 'include',  // This ensures cookies are sent, including HttpOnly cookies
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -53,13 +50,12 @@ export default function PostDetail() {
           parentId: replyTo,
         }),
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to submit comment');
       }
-  
+
       const comment = await response.json();
-  
       setComments(prev => [comment, ...prev]);
       setNewComment('');
       setReplyTo(null);
@@ -67,52 +63,61 @@ export default function PostDetail() {
       console.error('Error creating comment:', error);
     }
   };
-  
 
-  const handleLike = (commentId) => {
+  const handleLike = async (commentId) => {
     const token = Cookies.get('token');
-    
     if (!token) {
       console.error('No token found');
       return;
     }
 
-    fetch(`${apiUrl}/comment/comments/${commentId}/like`, {
-      method: 'POST',
-      credentials: 'include', // This ensures cookies are sent with the request
-    })
-      .then(response => response.json())
-      .then(updatedComment => {
-        setComments(prev =>
-          prev.map(comment =>
-            comment.id === updatedComment.id ? updatedComment : comment
-          )
-        );
-      })
-      .catch(error => console.error('Error liking comment:', error));
+    try {
+      const response = await fetch(`${apiUrl}/comment/comments/${commentId}/like`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to like comment');
+      }
+
+      const updatedComment = await response.json();
+      setComments(prev =>
+        prev.map(comment =>
+          comment.id === updatedComment.id ? updatedComment : comment
+        )
+      );
+    } catch (error) {
+      console.error('Error liking comment:', error);
+    }
   };
 
-  const handleDislike = (commentId) => {
+  const handleDislike = async (commentId) => {
     const token = Cookies.get('token');
-    console.log(token)
     if (!token) {
       console.error('No token found');
       return;
     }
 
-    fetch(`${apiUrl}/comment/comments/${commentId}/dislike`, {
-      method: 'POST',
-      credentials: 'include', // This ensures cookies are sent with the request
-    })
-      .then(response => response.json())
-      .then(updatedComment => {
-        setComments(prev =>
-          prev.map(comment =>
-            comment.id === updatedComment.id ? updatedComment : comment
-          )
-        );
-      })
-      .catch(error => console.error('Error disliking comment:', error));
+    try {
+      const response = await fetch(`${apiUrl}/comment/comments/${commentId}/dislike`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to dislike comment');
+      }
+
+      const updatedComment = await response.json();
+      setComments(prev =>
+        prev.map(comment =>
+          comment.id === updatedComment.id ? updatedComment : comment
+        )
+      );
+    } catch (error) {
+      console.error('Error disliking comment:', error);
+    }
   };
 
   if (loading) {
@@ -130,7 +135,7 @@ export default function PostDetail() {
 
           <div>
             <h2 className="text-xl font-bold mb-4">Comments</h2>
-            {comments.map(comment => (
+            {comments.length ? comments.map(comment => (
               <div key={comment.id} className="mb-4">
                 <p><strong>{comment.author.name}:</strong> {comment.content}</p>
                 <button onClick={() => setReplyTo(comment.id)}>Reply</button>
@@ -146,9 +151,8 @@ export default function PostDetail() {
                   </div>
                 ))}
               </div>
-            ))}
+            )) : <div>No comments yet</div>}
 
-            {/* Comment Text Area */}
             <div className="mt-4">
               <textarea
                 value={newComment}
@@ -161,7 +165,7 @@ export default function PostDetail() {
           </div>
         </div>
       ) : (
-        <div>No comments yet</div>
+        <div>No post found</div>
       )}
     </div>
   );
