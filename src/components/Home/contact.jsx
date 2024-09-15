@@ -1,6 +1,17 @@
 import location from "../../assets/location.png";
-import message from "../../assets/message.png";
+import message1 from "../../assets/message.png";
+import { useState } from "react";
 export default function Contact(){
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+  
+    const handleSubscribe = (e) => {
+      e.preventDefault();
+      // Here you would typically send the email to your server or email service provider
+      // For demonstration, we'll just clear the form and show a success message
+      setEmail('');
+      setMessage('Thank you for subscribing to our newsletter!');
+    };
     return(
         <>
         <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-8 space-y-8">
@@ -31,9 +42,29 @@ export default function Contact(){
             </div>
             </div>
             <div className="flex flex-col items-center">
-            <img src = {message} alt ="message"className="w-24 h-24 mb-4"/>
+            <img src = {message1} alt ="message"className="w-24 h-24 mb-4"/>
             <h1 className="text-3xl font-bold">Contact Us</h1>
             </div>
+            <div className="newsletter-section w-full md:w-1/2 lg:w-1/3">
+        <h2 className="text-2xl font-semibold mb-4">Subscribe to Our Newsletter</h2>
+        <form onSubmit={handleSubscribe} className="flex flex-col space-y-4">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            className="p-2 rounded border border-gray-300"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          >
+            Subscribe
+          </button>
+        </form>
+        {message && <p className="mt-4 text-green-500">{message}</p>}
+      </div>
         </div>
         </>
     )

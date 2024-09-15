@@ -1,4 +1,4 @@
-import RecentPosts from "./recentpost";
+
 import DraftPosts from "./status";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ export default function Home(){
 We’re thrilled to have you here! This is your hub for managing your posts and engaging with your readers. To get started, why not create your first post? Click the link below to craft and share your ideas with the world:</p>
 <button onClick={handleNavigate} className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full">Create a post</button>
         </div>
-        <RecentPosts/>
+       
         <DraftPosts/>
         </>
     )

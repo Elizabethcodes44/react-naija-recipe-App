@@ -5,13 +5,13 @@ const apiUrl =
     ? "http://localhost:5432" // Local backend URL for development
     : "https://foodblog-server-side.onrender.com"; // Production backend URL
 
-export default function DraftsPosts() {
+export default function PublishedPosts() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     async function fetchPublishedPosts() {
       try {
-        const response = await fetch(`${apiUrl}/post/posts?status=DRAFT`, {
+        const response = await fetch(`${apiUrl}/post/posts?status=PUBLISHED`, {
           credentials: "include",
         });
         if (!response.ok) {
@@ -30,7 +30,7 @@ export default function DraftsPosts() {
  
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6 text-center mt-4">DRAFTS</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">Published Posts</h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map(post => {
           const featuredImageUrl = post.featured_image_url
@@ -52,9 +52,8 @@ export default function DraftsPosts() {
               <p className="text-gray-700 mb-2">{post.content}</p>
               <div className="mt-auto">
                 <span className="text-sm text-blue-600">{post.tags}</span>
-                
+                <span className="text-sm text-gray-400 ml-2">{post.category}</span>
               </div>
-              <button className="bg-black mt-4">EDIT POST</button>
             </li>
           );
         })}

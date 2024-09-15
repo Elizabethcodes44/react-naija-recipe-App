@@ -6,6 +6,8 @@ import "./author.css";
 import Home from "../Authordashboard/home.jsx";
 import { Routes, Route } from "react-router-dom";
 import CreateAPost from "./postcreation.jsx";
+import AuthorProfile from "./profile.jsx";
+import PublishedPosts from "./published.jsx";
 
 
 
@@ -30,6 +32,8 @@ export default function AuthorDashBoard() {
             <Routes>
                 <Route path = "/" element = {<Home/>}> </Route>
                 <Route path = "createapost" element = {<CreateAPost/>}> </Route>
+                <Route path = "authorprofile" element = {<AuthorProfile/>}> </Route>
+                <Route path = "publishedposts/:authorId" element = {<PublishedPosts/>}> </Route>
             </Routes>
          
           
