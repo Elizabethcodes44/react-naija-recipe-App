@@ -72,11 +72,13 @@ export default function PostList({ selectedCategory }) {
                 e.target.src = "/logo.png"; // Optional fallback
               }}
             />
-
+<h1>{post.title}</h1>
             
-            <h1>Authors Name: {post.author ? post.author.name : 'Unknown Author'}</h1>
-            <h1>Status: {post.status}</h1>
-            <h1>Authors Email: {post.author ? post.author.email : 'Email Unknown'}</h1>
+            <h1>{post.author_id}</h1>
+            
+            <h1> {post.status}</h1>
+            <h1>Tags: {post.tags}</h1>
+            <h1>{post.author ? post.author.email : 'Email Unknown'}</h1>
           </div>
         ))}
       </div>

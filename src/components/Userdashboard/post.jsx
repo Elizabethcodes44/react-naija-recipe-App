@@ -31,42 +31,47 @@ export default function PostDetail() {
       .finally(() => setLoading(false));
   }, [postId]);
 
-  const handleCommentSubmit = () => {
-    const token = Cookies.get('token');
-
-    if (!token) {
-      console.error('No token found');
-      return;
-    }
-
-    fetch(`${apiUrl}/comment/comments`, {
-      method: 'POST',
-      headers: {
+  const handleCommentSubmit = async () => {
+    try {
+      const token = Cookies.get('token');
+      console.log("Token:",token);
+  
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
+  
+      const response = await fetch(`${apiUrl}/comment/comments`, {
+        method: 'POST',
+        credentials: 'include',  // This ensures cookies are sent, including HttpOnly cookies
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: newComment,
+          postId,
+          parentId: replyTo,
+        }),
+      });
       
-      },
-      body: JSON.stringify({
-        content: newComment,
-        postId,
-        parentId: replyTo,
-      }),
-    })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(error => { throw new Error(error.error || 'Unknown error'); });
-        }
-        return response.json();
-      })
-      .then(comment => {
-        setComments(prev => [comment, ...prev]);
-        setNewComment('');
-        setReplyTo(null);
-      })
-      .catch(error => console.error('Error creating comment:', error));
+      if (!response.ok) {
+        throw new Error('Failed to submit comment');
+      }
+  
+      const comment = await response.json();
+  
+      setComments(prev => [comment, ...prev]);
+      setNewComment('');
+      setReplyTo(null);
+    } catch (error) {
+      console.error('Error creating comment:', error);
+    }
   };
+  
 
   const handleLike = (commentId) => {
     const token = Cookies.get('token');
-
+    
     if (!token) {
       console.error('No token found');
       return;
@@ -74,9 +79,7 @@ export default function PostDetail() {
 
     fetch(`${apiUrl}/comment/comments/${commentId}/like`, {
       method: 'POST',
-      headers: {
-      
-      }
+      credentials: 'include', // This ensures cookies are sent with the request
     })
       .then(response => response.json())
       .then(updatedComment => {
@@ -91,7 +94,7 @@ export default function PostDetail() {
 
   const handleDislike = (commentId) => {
     const token = Cookies.get('token');
-
+    console.log(token)
     if (!token) {
       console.error('No token found');
       return;
@@ -99,9 +102,7 @@ export default function PostDetail() {
 
     fetch(`${apiUrl}/comment/comments/${commentId}/dislike`, {
       method: 'POST',
-      headers: {
-        
-      }
+      credentials: 'include', // This ensures cookies are sent with the request
     })
       .then(response => response.json())
       .then(updatedComment => {
@@ -123,7 +124,7 @@ export default function PostDetail() {
       {post ? (
         <div>
           <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-          <img src={post.featured_image_url} alt={post.title} className="w-full h-64 object-cover mb-4" />
+          <img src={`${apiUrl}${post.featured_image_url}`} alt={post.title} className="w-full h-64 object-cover mb-4" />
           <p className="mb-4">{post.content}</p>
           <p className="mb-4">{post.author.name}</p>
 
@@ -153,7 +154,7 @@ export default function PostDetail() {
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Write a comment..."
-                className="w-full h-24 p-2"
+                className="w-full h-24 p-2 bg-transparent border-2 border-white text-white"
               />
               <button onClick={handleCommentSubmit} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
             </div>
