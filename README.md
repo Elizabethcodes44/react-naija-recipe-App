@@ -1,6 +1,4 @@
-Here's the updated README for your food blog app, "Epicurean Adventures," including details on what authors and admins can do:
 
----
 
 # 🍲 Epicurean Adventures 🍽️
 
@@ -89,4 +87,4 @@ To get started with **Epicurean Adventures**, follow these steps:
 
 ---
 
-Feel free to adjust the README based on any additional features or specifics about your project!
+
