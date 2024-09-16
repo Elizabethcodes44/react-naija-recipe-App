@@ -10,6 +10,8 @@ import PostDetail from "./post.jsx";
 import { useState } from "react";
 import Profile from "./Profile.jsx";
 import AuthorsList from "./authors.jsx";
+import WishList from "./wishlist.jsx";
+import SearchComponent from "./search.jsx";
 export default function UserDashBoard() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const handleCategorySelect = (category) => {
@@ -28,9 +30,9 @@ export default function UserDashBoard() {
         }}
       >
         <UserHeader></UserHeader>
-
+        <div className="dashboard-content flex flex-col md:flex-row">
         <Leftbar></Leftbar>
-        <div className="main-content">
+        <div className="main-content  flex-1 p-4">
           <Routes>
             <Route
               path="/"
@@ -43,10 +45,14 @@ export default function UserDashBoard() {
             <Route path="post/:postId" element={<PostDetail />} />
             <Route path="myprofile" element={<Profile />} />
             <Route path="authorslist" element={<AuthorsList />} />
+            <Route path="wishlist" element={<WishList />} />
+            <Route path="searchlist" element={<SearchComponent />} />
+
 
           </Routes>
         </div>
         <Sidebar></Sidebar>
+      </div>
       </div>
     </>
   );

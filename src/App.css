@@ -25,6 +25,20 @@ body {
   
     
 }
+@media (max-width: 768px) {
+body {
+      background-size: contain; /* Shrink image more on smaller screens */
+      font-size: 12px;
+      height: auto; 
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+      background-size: contain; /* Further shrink on very small screens */
+      font-size: 10px;
+  }
+}
 
 .app-Container {
   width: 100%;

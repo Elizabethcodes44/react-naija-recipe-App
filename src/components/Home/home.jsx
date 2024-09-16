@@ -6,7 +6,7 @@ export default function Home(){
     }
     return(
         <main className="flex justify-center items-center min-h-screen">
-           <button onClick = {handleNavigate}className="text-white bg-transparent text-center text-2xl italic w-[80px]  rounded-full border-white border-4">Get started here</button>
+           <button onClick = {handleNavigate}className="text-white bg-orange-500 text-center text-2xl italic w-[80px]  rounded-full border-white border-4 hover:bg-black">Get started here</button>
         </main>
     )
 }
